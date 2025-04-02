@@ -8,70 +8,9 @@ datasource db {
   // shadowDatabaseUrl = env("SHADOW_DATABASE_UR L") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/migrate-shadow
 }
 
-model Product {
-  id       String   @id @default(cuid())
-  name     String
-  vintage  String
-  varietal String
-  region   String?
-  brandId  String
-  bottles  Bottle[]
-  brand    Brand    @relation(fields: [brandId], references: [id])
-}
-
-model Brand {
-  id       String    @id @default(cuid())
-  name     String
-  type     BrandType
-  products Product[]
-}
-
-model Bottle {
-  id              String     @id @default(cuid())
-  size            Float?
-  servingSize     Float?
-  purchasePrice   Float?
-  purchaseDate    DateTime?
-  openDate        DateTime?
-  finished        Boolean?
-  finishDate      DateTime?
-  amountRemaining Float?
-  notes           String?
-  userId          String
-  user            User       @relation(fields: [userId], references: [id])
-  productId       String
-  product         Product    @relation(fields: [productId], references: [id])
-  shelfItem       ShelfItem?
-}
-
-model Stash {
-  id       String  @id @default(cuid())
-  name     String
-  location String
-  type     String
-  userId   String
-  user     User    @relation(fields: [userId], references: [id])
-  shelves  Shelf[]
-}
-
-model Shelf {
-  id         String      @id @default(cuid())
-  name       String
-  order      Int?
-  capacity   Int
-  stashId    String?
-  temp       Float
-  stash      Stash?      @relation(fields: [stashId], references: [id], onDelete: Cascade)
-  shelfItems ShelfItem[]
-}
-
-model ShelfItem {
-  id       String @id @default(cuid())
-  order    Int
-  bottleId String @unique
-  shelfId  String
-  bottle   Bottle @relation(fields: [bottleId], references: [id])
-  shelf    Shelf  @relation(fields: [shelfId], references: [id])
+model Engagement {
+  id   String @id @default(cuid())
+  name String
 }
 
 model Account {
@@ -109,9 +48,7 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  bottles       Bottle[]
   sessions      Session[]
-  stash         Stash[]
 }
 
 model VerificationToken {
@@ -120,10 +57,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-enum BrandType {
-  SPIRIT
-  WINE
-  BEER
 }
