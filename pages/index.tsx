@@ -25,12 +25,11 @@ export default function Page() {
         <>
           <Container>
             <Text
-                // center align
                 size="lg"
                 fw={800}
                 ta="center"
                 variant="gradient"
-            >You're logged in</Text>
+            >You are logged in</Text>
             {/*<Grid>*/}
             {/*  <Grid.Col span={{base: 12, xs: 4}}>*/}
             {/*    <Card*/}
