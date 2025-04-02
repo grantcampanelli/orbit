@@ -2,6 +2,7 @@
 import NextAuth, {NextAuthOptions} from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
+import EmailProvider from 'next-auth/providers/email'
 import CredentialsProvider from "next-auth/providers/credentials"
 
 // PRISMA
@@ -24,6 +25,10 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
     }),
+    // EmailProvider({
+    //   server: process.env.EMAIL_SERVER,
+    //   from: process.env.EMAIL_FROM
+    // }),
     // CredentialsProvider({
     //   // The name to display on the sign in form (e.g. 'Sign in with...')
     //   name: 'Credentials',

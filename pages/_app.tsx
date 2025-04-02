@@ -15,8 +15,8 @@ export default function App({
   return (
     <>
       <Head>
-        <title>Sip</title>
-        <meta name="description" content="Know what you're sippin'" />
+        <title>Orbit</title>
+        <meta name="description" content="Everything moves around you" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <ColorSchemeScript />

@@ -34,15 +34,15 @@ const SignedIn = () => {
       <>
         <Group h="100%" gap={0} visibleFrom="sm">
 
-          <Link href="/bottles" className={classes.link}>
-            My Bottles
-          </Link>
-          <Link href="/stashes" className={classes.link}>
-            My Stashes
-          </Link>
-          <Link href="/brands" className={classes.link}>
-            Brands
-          </Link>
+          {/*<Link href="/bottles" className={classes.link}>*/}
+          {/*  My Bottles*/}
+          {/*</Link>*/}
+          {/*<Link href="/stashes" className={classes.link}>*/}
+          {/*  My Stashes*/}
+          {/*</Link>*/}
+          {/*<Link href="/brands" className={classes.link}>*/}
+          {/*  Brands*/}
+          {/*</Link>*/}
           <Link href="/account" className={classes.link}>
             Account
           </Link>
@@ -63,27 +63,27 @@ const SignedIn = () => {
           <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
             <Divider my="sm" />
 
-            <Link
-              href="/bottles"
-              className={classes.link}
-              onClick={toggleDrawer}
-            >
-              My Bottles
-            </Link>
-            <Link
-              href="/stashes"
-              className={classes.link}
-              onClick={toggleDrawer}
-            >
-              My Stashes
-            </Link>
-            <Link
-                href="/brands"
-                className={classes.link}
-                onClick={toggleDrawer}
-            >
-              Brands
-            </Link>
+            {/*<Link*/}
+            {/*  href="/bottles"*/}
+            {/*  className={classes.link}*/}
+            {/*  onClick={toggleDrawer}*/}
+            {/*>*/}
+            {/*  My Bottles*/}
+            {/*</Link>*/}
+            {/*<Link*/}
+            {/*  href="/stashes"*/}
+            {/*  className={classes.link}*/}
+            {/*  onClick={toggleDrawer}*/}
+            {/*>*/}
+            {/*  My Stashes*/}
+            {/*</Link>*/}
+            {/*<Link*/}
+            {/*    href="/brands"*/}
+            {/*    className={classes.link}*/}
+            {/*    onClick={toggleDrawer}*/}
+            {/*>*/}
+            {/*  Brands*/}
+            {/*</Link>*/}
             <Link
                 href="/account"
                 className={classes.link}
@@ -122,10 +122,10 @@ const Header = () => {
         <Group justify="space-between" h="100%" pl="20px" pt="20px">
           <Link href="/">
             <Image
-              src="/SipLogoNoBg.png"
-              width={100}
+              src="/orbit.png"
+              width={120}
               height={100}
-              alt="Sippin Logo"
+              alt="Orbit Logo"
             />
           </Link>
           <SignedIn />
