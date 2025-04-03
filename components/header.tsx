@@ -34,12 +34,12 @@ const SignedIn = () => {
       <>
         <Group h="100%" gap={0} visibleFrom="sm">
 
-          {/*<Link href="/bottles" className={classes.link}>*/}
-          {/*  My Bottles*/}
-          {/*</Link>*/}
-          {/*<Link href="/stashes" className={classes.link}>*/}
-          {/*  My Stashes*/}
-          {/*</Link>*/}
+          <Link href="/applications" className={classes.link}>
+            Applications
+          </Link>
+          <Link href="/tools" className={classes.link}>
+            Tools
+          </Link>
           {/*<Link href="/brands" className={classes.link}>*/}
           {/*  Brands*/}
           {/*</Link>*/}
@@ -63,20 +63,20 @@ const SignedIn = () => {
           <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
             <Divider my="sm" />
 
-            {/*<Link*/}
-            {/*  href="/bottles"*/}
-            {/*  className={classes.link}*/}
-            {/*  onClick={toggleDrawer}*/}
-            {/*>*/}
-            {/*  My Bottles*/}
-            {/*</Link>*/}
-            {/*<Link*/}
-            {/*  href="/stashes"*/}
-            {/*  className={classes.link}*/}
-            {/*  onClick={toggleDrawer}*/}
-            {/*>*/}
-            {/*  My Stashes*/}
-            {/*</Link>*/}
+            <Link
+              href="/applications"
+              className={classes.link}
+              onClick={toggleDrawer}
+            >
+              Applications
+            </Link>
+            <Link
+              href="/tools"
+              className={classes.link}
+              onClick={toggleDrawer}
+            >
+              Tools
+            </Link>
             {/*<Link*/}
             {/*    href="/brands"*/}
             {/*    className={classes.link}*/}
