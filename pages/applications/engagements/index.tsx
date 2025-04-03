@@ -235,7 +235,7 @@ export default function Engagements() {
                 <Paper shadow="xs" p="md" radius="md" withBorder mb="xl">
                     <TextInput
                         placeholder="Search engagement types..."
-                        icon={<IconSearch size={16} />}
+                        leftSection={<IconSearch size={16} />}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         mb="md"
@@ -271,22 +271,22 @@ export default function Engagements() {
 
                                 <Divider my="sm" />
 
-                                <Group spacing="xs" mb="md">
+                                <Group  mb="md">
                                     <Text size="xs" fw={500}>Avg. Duration:</Text>
                                     <Text size="xs" c="dimmed">{type.metrics.avgDuration}</Text>
                                 </Group>
 
-                                <Group spacing="xs" mb="md">
+                                <Group mb="md">
                                     <Text size="xs" fw={500}>Completion Rate:</Text>
                                     <Text size="xs" c="dimmed">{type.metrics.completionRate}%</Text>
                                 </Group>
 
-                                <Group spacing="xs" mb="md">
+                                <Group mb="md">
                                     <Text size="xs" fw={500}>Satisfaction:</Text>
                                     <Text size="xs" c="dimmed">{type.metrics.userSatisfaction}/5.0</Text>
                                 </Group>
 
-                                <Group mt="lg" position="apart">
+                                <Group mt="lg" >
                                     <Tooltip label="View Analytics">
                                         <ActionIcon
                                             variant="light"
