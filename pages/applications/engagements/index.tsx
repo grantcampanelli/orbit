@@ -227,7 +227,7 @@ export default function Engagements() {
             <Container size="lg" py="xl">
                 <Flex justify="space-between" align="center" mb="xl">
                     <Title>Engagement Types</Title>
-                    <Button onClick={handleCreateEngagementType} color="red" leftIcon={<IconPlus size={16} />}>
+                    <Button onClick={handleCreateEngagementType} color="red" leftSection={<IconPlus size={16} />}>
                         New Engagement Type
                     </Button>
                 </Flex>
@@ -271,7 +271,7 @@ export default function Engagements() {
 
                                 <Divider my="sm" />
 
-                                <Group  mb="md">
+                                <Group mb="md">
                                     <Text size="xs" fw={500}>Avg. Duration:</Text>
                                     <Text size="xs" c="dimmed">{type.metrics.avgDuration}</Text>
                                 </Group>
@@ -283,24 +283,31 @@ export default function Engagements() {
 
                                 <Group mb="md">
                                     <Text size="xs" fw={500}>Satisfaction:</Text>
-                                    <Text size="xs" c="dimmed">{type.metrics.userSatisfaction}/5.0</Text>
+                                    <Text size="xs" c="dimmed">{type.metrics.userSatisfaction}/5</Text>
                                 </Group>
 
-                                <Group mt="lg" >
+                                <Group justify="space-between" mt="md">
+                                    <Tooltip label="Configure">
+                                        <ActionIcon 
+                                            variant="light"
+                                            onClick={() => handleViewEngagementType(type.id)}
+                                        >
+                                            <IconSettings size={18} />
+                                        </ActionIcon>
+                                    </Tooltip>
+                                    
                                     <Tooltip label="View Analytics">
-                                        <ActionIcon
+                                        <ActionIcon 
                                             variant="light"
                                             color="blue"
                                             onClick={() => router.push(`/applications/engagements/${type.id}/analytics`)}
                                         >
-                                            <IconChartBar size={16} />
+                                            <IconChartBar size={18} />
                                         </ActionIcon>
                                     </Tooltip>
-
-                                    <Button
-                                        variant="light"
-                                        color="red"
-                                        rightIcon={<IconSettings size={16} />}
+                                    
+                                    <Button 
+                                        variant="light" 
                                         onClick={() => handleViewEngagementType(type.id)}
                                     >
                                         Configure
@@ -314,3 +321,4 @@ export default function Engagements() {
         </>
     );
 }
+
