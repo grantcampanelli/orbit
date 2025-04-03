@@ -40,18 +40,19 @@ export default function App({
                   padding="md"
               >
                   <AppShell.Header>
-                      <Group h="100%" px="md">
-                          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-                          <Image
-                              src="/orbit.png"
-                              width={120}
-                              height={100}
-                              alt="Orbit Logo"
-                          />
-                      </Group>
+                      <Header />
+                      {/*<Group h="100%" px="md">*/}
+                      {/*    <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />*/}
+                      {/*    <Image*/}
+                      {/*        src="/orbit.png"*/}
+                      {/*        width={120}*/}
+                      {/*        height={100}*/}
+                      {/*        alt="Orbit Logo"*/}
+                      {/*    />*/}
+                      {/*</Group>*/}
                   </AppShell.Header>
                   <AppShell.Navbar p="md">
-                      Navbar
+                      Applications
                       {Array(15)
                           .fill(0)
                           .map((_, index) => (
