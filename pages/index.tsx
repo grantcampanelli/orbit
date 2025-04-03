@@ -29,7 +29,7 @@ export default function Page() {
                 fw={800}
                 ta="center"
                 variant="gradient"
-            >You are logged in</Text>
+            >Start building your tenant!</Text>
             {/*<Grid>*/}
             {/*  <Grid.Col span={{base: 12, xs: 4}}>*/}
             {/*    <Card*/}
@@ -132,14 +132,14 @@ export default function Page() {
                   ta="center"
                   variant="gradient"
                   gradient={{from: 'red', to: 'maroon', deg: 90}}
-              >Know what you are sippin!</Text>
+              >Login to start building your tenant!</Text>
 
-              <Text size="md"
-                    fw={800}
-                    ta="center"
-                    variant="gradient"
-                    gradient={{from: 'red', to: 'maroon', deg: 90}}
-              >Login to start tracking your bottles</Text>
+              {/*<Text size="md"*/}
+              {/*      fw={800}*/}
+              {/*      ta="center"*/}
+              {/*      variant="gradient"*/}
+              {/*      gradient={{from: 'red', to: 'maroon', deg: 90}}*/}
+              {/*>Login to start tracking your bottles</Text>*/}
 
               {/*<Grid>*/}
               {/*  <Grid.Col span={{base: 12, xs: 4}}>*/}
