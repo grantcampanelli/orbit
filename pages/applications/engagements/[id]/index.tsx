@@ -5,9 +5,6 @@ import Head from "next/head";
 import {
   Container,
   Title,
-  TextInput,
-  NumberInput,
-  Select,
   Button,
   Group,
   Text,
@@ -20,26 +17,22 @@ import {
   Badge,
   Loader,
   Center,
-  Textarea,
   Modal,
   Timeline,
   ActionIcon,
-  Tooltip,
   Alert,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { notifications } from "@mantine/notifications";
 import {
-  IconDeviceFloppy,
   IconArrowBack,
   IconUsers,
   IconSettings,
   IconRobot,
   IconArrowsExchange,
   IconRoute,
-  IconCheck,
   IconMessageDots,
   IconAlertCircle,
+  IconEdit,
 } from "@tabler/icons-react";
 
 // Types
@@ -96,7 +89,6 @@ export default function EngagementTypeDetail() {
   
   const [engagementType, setEngagementType] = useState<EngagementType | null>(null);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
 
   useEffect(() => {
@@ -184,21 +176,6 @@ export default function EngagementTypeDetail() {
     }
   }, [id, status]);
 
-  const handleSave = () => {
-    setSaving(true);
-    
-    // Simulate API call to save changes
-    setTimeout(() => {
-      setSaving(false);
-      notifications.show({
-        title: 'Changes saved',
-        message: `${engagementType?.name} configuration has been updated successfully`,
-        color: 'green',
-        icon: <IconCheck size={16} />,
-      });
-    }, 1000);
-  };
-
   const handleBack = () => {
     router.push("/applications/engagements");
   };
@@ -236,8 +213,8 @@ export default function EngagementTypeDetail() {
   return (
     <>
       <Head>
-        <title>{engagementType.name} Configuration | Orbit</title>
-        <meta name="description" content={`Configure ${engagementType.name} engagement type`} />
+        <title>{engagementType.name} Details | Orbit</title>
+        <meta name="description" content={`View ${engagementType.name} engagement type details`} />
       </Head>
       
       <Modal 
@@ -289,7 +266,7 @@ export default function EngagementTypeDetail() {
             >
               <IconArrowBack size={20} />
             </ActionIcon>
-            <Title>Configure Engagement Type</Title>
+            <Title>Engagement Type Details</Title>
             <Badge 
               color={
                 engagementType.status === "active" ? "green" : 
@@ -302,12 +279,11 @@ export default function EngagementTypeDetail() {
           </Group>
           
           <Button 
-            onClick={handleSave} 
-            color="green" 
-            leftSection={<IconDeviceFloppy size={16} />}
-            loading={saving}
+            onClick={() => router.push(`/applications/engagements/configure/${id}`)}
+            color="blue" 
+            leftSection={<IconEdit size={16} />}
           >
-            Save Changes
+            Configure
           </Button>
         </Flex>
         
@@ -316,49 +292,28 @@ export default function EngagementTypeDetail() {
             <Paper shadow="xs" p="lg" radius="md" withBorder mb="xl">
               <Title order={3} mb="md">Basic Information</Title>
               
-              <TextInput
-                label="Name"
-                placeholder="Enter engagement type name"
-                mb="md"
-                value={engagementType.name}
-                onChange={(e) => setEngagementType({...engagementType, name: e.target.value})}
-              />
+              <Text fw={500} size="sm" mb={5}>Name</Text>
+              <Text mb="md">{engagementType.name}</Text>
               
-              <Textarea
-                label="Description"
-                placeholder="Describe this engagement type"
-                minRows={3}
-                mb="md"
-                value={engagementType.description}
-                onChange={(e) => setEngagementType({...engagementType, description: e.target.value})}
-              />
+              <Text fw={500} size="sm" mb={5}>Description</Text>
+              <Text mb="md">{engagementType.description}</Text>
               
               <Grid>
                 <Grid.Col span={6}>
-                  <NumberInput
-                    label="Estimated Duration (minutes)"
-                    placeholder="Enter estimated duration"
-                    mb="md"
-                    min={1}
-                    max={480}
-                    value={engagementType.estimatedDuration}
-                    onChange={(val) => val !== null && setEngagementType({...engagementType, estimatedDuration: Number(val)})}
-                  />
+                  <Text fw={500} size="sm" mb={5}>Estimated Duration</Text>
+                  <Text mb="md">{engagementType.estimatedDuration} minutes</Text>
                 </Grid.Col>
                 
                 <Grid.Col span={6}>
-                  <Select
-                    label="Status"
-                    placeholder="Select status"
-                    mb="md"
-                    data={[
-                      { value: 'active', label: 'Active' },
-                      { value: 'inactive', label: 'Inactive' },
-                      { value: 'beta', label: 'Beta' },
-                    ]}
-                    value={engagementType.status}
-                    onChange={(val) => val && setEngagementType({...engagementType, status: val as any})}
-                  />
+                  <Text fw={500} size="sm" mb={5}>Status</Text>
+                  <Badge
+                    color={
+                      engagementType.status === "active" ? "green" : 
+                      engagementType.status === "beta" ? "blue" : "gray"
+                    }
+                  >
+                    {engagementType.status.charAt(0).toUpperCase() + engagementType.status.slice(1)}
+                  </Badge>
                 </Grid.Col>
               </Grid>
             </Paper>
@@ -390,18 +345,6 @@ export default function EngagementTypeDetail() {
                   </Group>
                 </Grid.Col>
               </Grid>
-              
-              <Divider my="md" />
-              
-              <Group justify="end">
-                <Button
-                  color="orange"
-                  leftSection={<IconArrowsExchange size={16} />}
-                  onClick={() => router.push(`/applications/workflows/${engagementType.workflow.id}?returnTo=${encodeURIComponent(router.asPath)}`)}
-                >
-                  Edit Workflow
-                </Button>
-              </Group>
             </Paper>
           </Grid.Col>
           
@@ -438,7 +381,7 @@ export default function EngagementTypeDetail() {
                   leftSection={<IconSettings size={16} />}
                   onClick={() => router.push(`/applications/roles?engagementType=${engagementType.id}`)}
                 >
-                  Configure Roles
+                  View Roles
                 </Button>
               </Card>
               
@@ -469,7 +412,7 @@ export default function EngagementTypeDetail() {
                   leftSection={<IconSettings size={16} />}
                   onClick={() => router.push(`/applications/ai-config/${engagementType.id}`)}
                 >
-                  Configure AI Assist
+                  View AI Configuration
                 </Button>
               </Card>
               

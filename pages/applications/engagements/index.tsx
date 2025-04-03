@@ -197,7 +197,7 @@ export default function Engagements() {
 
     // Handle creating a new engagement type
     const handleCreateEngagementType = () => {
-        router.push("/applications/engagements/new");
+        router.push("/applications/engagements/create");
     };
 
     // Handle navigating to engagement type details
@@ -228,7 +228,7 @@ export default function Engagements() {
                 <Flex justify="space-between" align="center" mb="xl">
                     <Title>Engagement Types</Title>
                     <Button onClick={handleCreateEngagementType} color="red" leftSection={<IconPlus size={16} />}>
-                        New Engagement Type
+                        Create New Type
                     </Button>
                 </Flex>
 
@@ -286,18 +286,27 @@ export default function Engagements() {
                                     <Text size="xs" c="dimmed">{type.metrics.userSatisfaction}/5</Text>
                                 </Group>
 
-                                <Group justify="space-between" mt="md">
-                                    <Tooltip label="Configure">
-                                        <ActionIcon 
-                                            variant="light"
-                                            onClick={() => handleViewEngagementType(type.id)}
-                                        >
-                                            <IconSettings size={18} />
-                                        </ActionIcon>
-                                    </Tooltip>
+                                <Group mt="md">
+                                    {/*<Tooltip label="Configure">*/}
+                                    {/*    <ActionIcon */}
+                                    {/*        variant="light"*/}
+                                    {/*        onClick={() => handleViewEngagementType(type.id)}*/}
+                                    {/*    >*/}
+                                    {/*        <IconSettings size={18} />*/}
+                                    {/*    </ActionIcon>*/}
+                                    {/*</Tooltip>*/}
                                     
+
+                                    
+                                    <Button 
+                                        variant="light" 
+                                        onClick={() => handleViewEngagementType(type.id)}
+                                    >
+                                        View
+                                    </Button>
+
                                     <Tooltip label="View Analytics">
-                                        <ActionIcon 
+                                        <ActionIcon
                                             variant="light"
                                             color="blue"
                                             onClick={() => router.push(`/applications/engagements/${type.id}/analytics`)}
@@ -305,13 +314,6 @@ export default function Engagements() {
                                             <IconChartBar size={18} />
                                         </ActionIcon>
                                     </Tooltip>
-                                    
-                                    <Button 
-                                        variant="light" 
-                                        onClick={() => handleViewEngagementType(type.id)}
-                                    >
-                                        Configure
-                                    </Button>
                                 </Group>
                             </Card>
                         ))}
