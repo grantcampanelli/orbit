@@ -279,7 +279,7 @@ export default function EngagementTypeDetail() {
           </Group>
           
           <Button 
-            onClick={() => router.push(`/applications/engagements/configure/${id}`)}
+            onClick={() => router.push(`/applications/engagements/${id}/configure`)}
             color="blue" 
             leftSection={<IconEdit size={16} />}
           >

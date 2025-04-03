@@ -61,7 +61,7 @@ export default function CreateEngagementType() {
           },
         ],
       },
-      roles: [],
+      roles: [] as string[],
       aiAssist: {
         enabled: false,
         model: "gpt-4",
