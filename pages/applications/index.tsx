@@ -36,7 +36,7 @@ export default function Applications() {
     // Mock data for demonstration - replace with actual API call
     const mockApplications: Application[] = [
       {
-        id: "1",
+        id: "engagements",
         name: "Engagements",
         description: "Customer engagement and interaction tracking",
         status: "active",
