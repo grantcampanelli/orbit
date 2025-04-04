@@ -12,10 +12,8 @@ import {
   Center,
   Flex,
   Box,
-  Tabs,
-  rem,
-  Paper,
   ThemeIcon,
+  Paper,
 } from "@mantine/core";
 import { useRouter } from "next/router";
 import Head from 'next/head';
@@ -27,13 +25,14 @@ import {
   IconPlus
 } from '@tabler/icons-react';
 
-type ToolTab = 'roles' | 'workflows' | 'notificationTemplates' | 'tasks';
+type ToolTab =   'workflows' | 'roles' | 'notificationTemplates' | 'tasks';
 
 interface ToolCategory {
   id: ToolTab;
   title: string;
   description: string;
   icon: React.ReactNode;
+  path: string;
   emptyStateText: string;
   buttonText: string;
   onButtonClick: () => void;
@@ -42,8 +41,12 @@ interface ToolCategory {
 export default function Tools() {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<ToolTab>('roles');
   const router = useRouter();
+  
+  // Get current path to determine active tab
+  const currentPath = router.pathname;
+  const activePath = currentPath === '/tools' ? null :
+    currentPath.split('/').pop() as ToolTab;
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -74,28 +77,31 @@ export default function Tools() {
 
   const toolCategories: ToolCategory[] = [
     {
-      id: 'roles',
-      title: 'Roles Management',
-      description: 'Define user roles and permissions for your organization members',
-      icon: <IconUserCog size={24} />,
-      emptyStateText: 'No roles configured yet. Create your first role to manage permissions.',
-      buttonText: 'Add Role',
-      onButtonClick: () => console.log('Add role clicked')
-    },
-    {
       id: 'workflows',
       title: 'Workflows',
       description: 'Create automated processes to streamline your operations',
       icon: <IconDeviceAnalytics size={24} />,
+      path: '/tools/workflows',
       emptyStateText: 'No workflows configured. Create your first workflow automation.',
       buttonText: 'Create Workflow',
       onButtonClick: () => console.log('Create workflow clicked')
+    },
+      {
+      id: 'roles',
+      title: 'Roles Management',
+      description: 'Define user roles and permissions for your organization members',
+      icon: <IconUserCog size={24} />,
+      path: '/tools/roles',
+      emptyStateText: 'No roles configured yet. Create your first role to manage permissions.',
+      buttonText: 'Add Role',
+      onButtonClick: () => console.log('Add role clicked')
     },
     {
       id: 'notificationTemplates',
       title: 'Notification Templates',
       description: 'Design reusable templates for emails, SMS, and in-app notifications',
       icon: <IconBellRinging size={24} />,
+      path: '/tools/notification-templates',
       emptyStateText: 'No notification templates found. Create templates to standardize your communications.',
       buttonText: 'New Template',
       onButtonClick: () => console.log('New template clicked')
@@ -105,13 +111,18 @@ export default function Tools() {
       title: 'Tasks Configuration',
       description: 'Set up task types, assignees, and automation rules',
       icon: <IconChecklist size={24} />,
+      path: '/tools/tasks',
       emptyStateText: 'No task configurations available. Set up how tasks work in your system.',
       buttonText: 'Configure Tasks',
       onButtonClick: () => console.log('Configure tasks clicked')
     }
   ];
 
-  const currentTool = toolCategories.find(tool => tool.id === activeTab)!;
+  // For the default /tools route, show the first tool category
+  const currentTool = toolCategories.find(tool =>
+    (currentPath === '/tools' && tool.id === 'workflows') ||
+    tool.id === activePath
+  ) || toolCategories[0];
 
   return (
     <Container size="lg" py="xl">
@@ -132,12 +143,12 @@ export default function Tools() {
             padding="lg" 
             radius="md" 
             withBorder
-            className={activeTab === category.id ? 'active-card' : ''}
-            onClick={() => setActiveTab(category.id)}
+            className={activePath === category.id ? 'active-card' : ''}
+            onClick={() => router.push(category.path)}
             style={{ 
               cursor: 'pointer',
-              borderColor: activeTab === category.id ? 'var(--mantine-color-red-6)' : undefined,
-              background: activeTab === category.id ? 'var(--mantine-color-red-0)' : undefined
+              borderColor: activePath === category.id ? 'var(--mantine-color-red-6)' : undefined,
+              background: activePath === category.id ? 'var(--mantine-color-red-0)' : undefined
             }}
           >
             <ThemeIcon size="xl" radius="md" variant="light" color="red" mb="sm">
@@ -151,45 +162,45 @@ export default function Tools() {
         ))}
       </SimpleGrid>
 
-      <Paper shadow="xs" p="xl" radius="md" withBorder>
-        <Group justify="space-between" mb="lg">
-          <Box>
-            <Title order={2}>{currentTool.title}</Title>
-            <Text color="dimmed" mt="xs">{currentTool.description}</Text>
-          </Box>
-          <Button 
-            leftIcon={<IconPlus size={16} />} 
-            color="red"
-            onClick={currentTool.onButtonClick}
-          >
-            {currentTool.buttonText}
-          </Button>
-        </Group>
+      {/*<Paper shadow="xs" p="xl" radius="md" withBorder>*/}
+      {/*  <Group justify="space-between" mb="lg">*/}
+      {/*    <Box>*/}
+      {/*      <Title order={2}>{currentTool.title}</Title>*/}
+      {/*      <Text color="dimmed" mt="xs">{currentTool.description}</Text>*/}
+      {/*    </Box>*/}
+      {/*    <Button*/}
+      {/*      leftIcon={<IconPlus size={16} />}*/}
+      {/*      color="red"*/}
+      {/*      onClick={currentTool.onButtonClick}*/}
+      {/*    >*/}
+      {/*      {currentTool.buttonText}*/}
+      {/*    </Button>*/}
+      {/*  </Group>*/}
 
-        <Card shadow="sm" padding="xl" radius="md" withBorder>
-          <Center py="xl" style={{ flexDirection: 'column', gap: '16px', minHeight: '200px' }}>
-            <Text c="dimmed" align="center" mb="md">
-              {currentTool.emptyStateText}
-            </Text>
-            <Box
-              style={{
-                width: '100%',
-                height: '1px',
-                background: 'var(--mantine-color-gray-3)',
-                margin: '20px 0',
-              }}
-            />
-            <Button 
-              variant="outline" 
-              color="red"
-              leftIcon={<IconPlus size={16} />}
-              onClick={currentTool.onButtonClick}
-            >
-              {currentTool.buttonText}
-            </Button>
-          </Center>
-        </Card>
-      </Paper>
+      {/*  <Card shadow="sm" padding="xl" radius="md" withBorder>*/}
+      {/*    <Center py="xl" style={{ flexDirection: 'column', gap: '16px', minHeight: '200px' }}>*/}
+      {/*      <Text c="dimmed" align="center" mb="md">*/}
+      {/*        {currentTool.emptyStateText}*/}
+      {/*      </Text>*/}
+      {/*      <Box*/}
+      {/*        style={{*/}
+      {/*          width: '100%',*/}
+      {/*          height: '1px',*/}
+      {/*          background: 'var(--mantine-color-gray-3)',*/}
+      {/*          margin: '20px 0',*/}
+      {/*        }}*/}
+      {/*      />*/}
+      {/*      <Button*/}
+      {/*        variant="outline"*/}
+      {/*        color="red"*/}
+      {/*        leftIcon={<IconPlus size={16} />}*/}
+      {/*        onClick={currentTool.onButtonClick}*/}
+      {/*      >*/}
+      {/*        {currentTool.buttonText}*/}
+      {/*      </Button>*/}
+      {/*    </Center>*/}
+      {/*  </Card>*/}
+      {/*</Paper>*/}
       
       <style jsx global>{`
         .active-card {

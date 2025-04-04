@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
@@ -90,13 +90,7 @@ export default function ConfigureEngagementType() {
   });
 
   // Fetch engagement type data
-  useEffect(() => {
-    if (id && typeof id === 'string') {
-      fetchEngagementType(id);
-    }
-  }, [id]);
-
-  const fetchEngagementType = async (engagementId: string) => {
+  const fetchEngagementType = useCallback(async (engagementId: string) => {
     setFetchLoading(true);
     setError("");
     
@@ -152,7 +146,13 @@ export default function ConfigureEngagementType() {
       setError("Failed to load engagement type data. Please try again.");
       setFetchLoading(false);
     }
-  };
+  }, [form]);
+
+  useEffect(() => {
+    if (id && typeof id === 'string') {
+      fetchEngagementType(id);
+    }
+  }, [id, fetchEngagementType]);
 
   const handleBack = () => {
     router.push("/applications/engagements");
